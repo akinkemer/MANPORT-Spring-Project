@@ -8,5 +8,4 @@ public class ManportApplication {
 	public static void main(String[] args) {
 		SpringApplication.run(ManportApplication.class, args);
 	}
-
 }

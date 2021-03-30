@@ -1,20 +1,26 @@
 package com.akinkemer.manport.domain;
 
 import com.akinkemer.manport.enums.app.*;
+import com.fasterxml.jackson.annotation.JsonAutoDetect;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonManagedReference;
+import com.google.gson.Gson;
+import lombok.Data;
 import org.hibernate.validator.constraints.Range;
 
 import javax.persistence.*;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.Size;
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
 @Entity
-public class Application extends BaseEntity {
+@Data
+@JsonIgnoreProperties(value = {"jobs"})
+public class Application extends BaseEntity{
 
     @NotBlank
     @Size(max = 40)
@@ -55,8 +61,7 @@ public class Application extends BaseEntity {
 
 
     @OneToMany(cascade = CascadeType.ALL, orphanRemoval = true)
-    @JsonManagedReference
-    List<Job> jobs = new ArrayList<>();
+    private List<Job> jobs = new ArrayList<>();
 
 
     public Application() {
@@ -167,6 +172,9 @@ public class Application extends BaseEntity {
     public Long getId() {
         return super.getId();
     }
+    public void setId(Long id) {
+         super.setId(id);
+    }
 
     public String getName() {
         return name;
@@ -199,4 +207,5 @@ public class Application extends BaseEntity {
     public void setJobs(List<Job> jobs) {
         this.jobs = jobs;
     }
+
 }

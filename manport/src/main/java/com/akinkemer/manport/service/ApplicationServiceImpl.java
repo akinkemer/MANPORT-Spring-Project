@@ -1,11 +1,11 @@
 package com.akinkemer.manport.service;
 
+import com.akinkemer.manport.converter.DtoToApplicationConverter;
 import com.akinkemer.manport.domain.Application;
 import com.akinkemer.manport.dto.ApplicationDto;
-import com.akinkemer.manport.converter.ApplicationDtoConverter;
+import com.akinkemer.manport.converter.ApplicationToDtoConverter;
 import com.akinkemer.manport.repository.ApplicationRepository;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Component;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -22,16 +22,25 @@ public class ApplicationServiceImpl implements ApplicationService {
 
     @Override
     public List<ApplicationDto> getApplications(){
-        ApplicationDtoConverter appDtoConverter=new ApplicationDtoConverter();
-        return appDtoConverter.convert(applicationRepository.findAll());
+        return new ApplicationToDtoConverter()
+                .convert(applicationRepository.findAll());
     }
 
     @Override
-    public void addNewApplication(Application application)  {
-        Optional<Application> optionalApplication=applicationRepository.findByName(application.getName());
-        if(optionalApplication.isPresent()) throw new IllegalStateException("app name taken");
-        optionalApplication=applicationRepository.findByShortCode(application.getShortCode());
-        if(optionalApplication.isPresent()) throw new IllegalStateException("short code taken");
-        applicationRepository.save(application);
+    public ApplicationDto addNewApplication(ApplicationDto dto)  {
+        Optional<Application> optionalApplication=
+                applicationRepository.findByName(dto.getName());
+        if(optionalApplication.isPresent())
+            throw new IllegalArgumentException("App name taken");
+        optionalApplication=
+                applicationRepository.findByShortCode(dto.getShortCode());
+        if(optionalApplication.isPresent())
+            throw new IllegalArgumentException("Short code taken");
+
+        Application app= new DtoToApplicationConverter().convert(dto);
+
+        Application savedApp=applicationRepository.save(app);
+
+        return new ApplicationToDtoConverter().convert(savedApp);
     }
 }

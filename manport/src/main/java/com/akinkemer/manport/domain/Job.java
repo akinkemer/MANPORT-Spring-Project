@@ -27,14 +27,12 @@ public class Job extends BaseEntity {
     @ManyToOne(
             fetch = FetchType.EAGER
     )
-    @JsonBackReference
     private Production production;
 
 
     @ManyToOne(
             fetch = FetchType.EAGER
     )
-    @JsonBackReference
     private Application application;
 
 

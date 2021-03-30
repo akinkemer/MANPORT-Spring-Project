@@ -1,5 +1,6 @@
 package com.akinkemer.manport.domain;
 
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonManagedReference;
 
 import javax.persistence.*;
@@ -8,6 +9,7 @@ import javax.validation.constraints.Size;
 import java.util.List;
 
 @Entity
+@JsonIgnoreProperties(value = {"productions"})
 public class Country extends BaseEntity{
     @NotBlank
     @Size(max = 10)
@@ -20,7 +22,6 @@ public class Country extends BaseEntity{
     @OneToMany(
             cascade = CascadeType.ALL,
             orphanRemoval = true)
-    @JsonManagedReference
     private List<Production> productions;
 
     public Country() {

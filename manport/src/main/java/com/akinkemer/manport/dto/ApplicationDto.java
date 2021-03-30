@@ -1,7 +1,7 @@
 package com.akinkemer.manport.dto;
 
-import com.akinkemer.manport.domain.Job;
 import com.akinkemer.manport.enums.app.*;
+import com.google.gson.Gson;
 
 import java.util.Date;
 import java.util.List;
@@ -10,16 +10,16 @@ public class ApplicationDto {
     private long id;
     private String name;
     private boolean lineStopRisk;
-    private BusinessArea businessArea;
+    private String businessArea;
     private String shortCode;
     private String responsibleName;
     private Integer lineCountOfBackendCode;
     private Integer lineCountOfFrontendCode;
     private Date releaseDate;
-    private ResponsibleTeam responsibleTeam;
-    private Backend backend;
-    private Frontend frontend;
-    private Database database;
+    private String responsibleTeam;
+    private String backend;
+    private String frontend;
+    private String database;
     private List<JobDto> jobs;
 
     public List<JobDto> getJobs() {
@@ -58,28 +58,28 @@ public class ApplicationDto {
     public void setReleaseDate(Date releaseDate) {
         this.releaseDate = releaseDate;
     }
-    public ResponsibleTeam getResponsibleTeam() {
+    public String getResponsibleTeam() {
         return responsibleTeam;
     }
-    public void setResponsibleTeam(ResponsibleTeam responsibleTeam) {
+    public void setResponsibleTeam(String responsibleTeam) {
         this.responsibleTeam = responsibleTeam;
     }
-    public Backend getBackend() {
+    public String getBackend() {
         return backend;
     }
-    public void setBackend(Backend backend) {
+    public void setBackend(String backend) {
         this.backend = backend;
     }
-    public Frontend getFrontend() {
+    public String getFrontend() {
         return frontend;
     }
-    public void setFrontend(Frontend frontend) {
+    public void setFrontend(String frontend) {
         this.frontend = frontend;
     }
-    public Database getDatabase() {
+    public String getDatabase() {
         return database;
     }
-    public void setDatabase(Database database) {
+    public void setDatabase(String database) {
         this.database = database;
     }
 
@@ -101,10 +101,10 @@ public class ApplicationDto {
     public void setLineStopRisk(boolean lineStopRisk) {
         this.lineStopRisk = lineStopRisk;
     }
-    public BusinessArea getBusinessArea() {
+    public String getBusinessArea() {
         return businessArea;
     }
-    public void setBusinessArea(BusinessArea businessArea) {
+    public void setBusinessArea(String businessArea) {
         this.businessArea = businessArea;
     }
 
@@ -112,16 +112,16 @@ public class ApplicationDto {
             long id,
             String name,
             boolean lineStopRisk,
-            BusinessArea businessArea,
+            String businessArea,
             String shortCode,
             String responsibleName,
             Integer lineCountOfBackendCode,
             Integer lineCountOfFrontendCode,
             Date releaseDate,
-            ResponsibleTeam responsibleTeam,
-            Backend backend,
-            Frontend frontend,
-            Database database,
+            String responsibleTeam,
+            String backend,
+            String frontend,
+            String database,
             List<JobDto> jobs) {
         this.id = id;
         this.name = name;
@@ -137,5 +137,10 @@ public class ApplicationDto {
         this.frontend = frontend;
         this.database = database;
         this.jobs=jobs;
+    }
+    @Override
+    public String toString() {
+        Gson gson = new Gson();
+        return gson.toJson(this);
     }
 }

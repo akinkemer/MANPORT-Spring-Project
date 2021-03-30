@@ -7,7 +7,7 @@ import java.util.List;
 
 public interface ApplicationService {
 
-    void addNewApplication(Application application);
+    ApplicationDto addNewApplication(ApplicationDto application);
 
     List<ApplicationDto> getApplications();
 }

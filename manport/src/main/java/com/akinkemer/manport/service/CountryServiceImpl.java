@@ -1,7 +1,6 @@
 package com.akinkemer.manport.service;
 
-import com.akinkemer.manport.converter.CountryDtoConverter;
-import com.akinkemer.manport.domain.Country;
+import com.akinkemer.manport.converter.CountryToDtoConverter;
 import com.akinkemer.manport.dto.CountryDto;
 import com.akinkemer.manport.repository.CountryRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -20,7 +19,7 @@ public class CountryServiceImpl implements CountryService {
 
     @Override
     public List<CountryDto> getCountries(){
-        CountryDtoConverter countryDtoConverter=new CountryDtoConverter();
+        CountryToDtoConverter countryDtoConverter=new CountryToDtoConverter();
         return countryDtoConverter.convert(countryRepository.findAll());
     }
 }

@@ -1,17 +1,18 @@
 package com.akinkemer.manport.controller;
 
-import com.akinkemer.manport.domain.Application;
 import com.akinkemer.manport.dto.ApplicationDto;
 import com.akinkemer.manport.service.ApplicationService;
-import com.akinkemer.manport.service.ApplicationServiceImpl;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.MediaType;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
 @RestController
 @CrossOrigin(origins = "http://localhost:3000")
-@RequestMapping("/api/v1/applications")
+@RequestMapping(path = "/api/v1/applications", produces = MediaType.APPLICATION_JSON_VALUE)
 public class ApplicationController {
     private final ApplicationService applicationService;
 
@@ -25,8 +26,19 @@ public class ApplicationController {
         return applicationService.getApplications();
     }
 
-    @PostMapping
-    public void addNewApplication(@RequestBody Application application) {
-        applicationService.addNewApplication(application);
+    @PostMapping(path = "/add")
+    public ResponseEntity<String> addNewApplication(@RequestBody ApplicationDto dto) {
+
+        ApplicationDto createdApp = applicationService.addNewApplication(dto);
+
+        if (createdApp == null) {
+            return ResponseEntity.notFound().build();
+        } else {
+            String resultJSON =
+                    "{\"httpStatus\":\"CREATED\",\"body\":"
+                            + createdApp.toString()
+                            + "}";
+            return new ResponseEntity<>(resultJSON, HttpStatus.CREATED);
+        }
     }
 }

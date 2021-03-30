@@ -1,5 +1,7 @@
 package com.akinkemer.manport.dto;
 
+import com.akinkemer.manport.domain.Application;
+import com.akinkemer.manport.domain.Production;
 import com.akinkemer.manport.enums.job.JobStatus;
 
 import java.util.Date;
@@ -9,16 +11,22 @@ public class JobDto {
     private String name;
     private JobStatus impactStatus;
     private Date updated;
+    private Application application;
+    private Production production;
 
-
-    public JobDto(long id,
-                  String name,
-                  JobStatus impactStatus,
-                  Date updated) {
+    public JobDto(
+            long id,
+            String name,
+            JobStatus impactStatus,
+            Date updated,
+            Application application,
+            Production production) {
         this.id = id;
         this.name = name;
         this.impactStatus = impactStatus;
         this.updated = updated;
+        this.application = application;
+        this.production = production;
     }
 
     public long getId() {
@@ -53,4 +61,19 @@ public class JobDto {
         this.updated = updated;
     }
 
+    public Application getApplication() {
+        return application;
+    }
+
+    public void setApplication(Application application) {
+        this.application = application;
+    }
+
+    public Production getProduction() {
+        return production;
+    }
+
+    public void setProduction(Production production) {
+        this.production = production;
+    }
 }

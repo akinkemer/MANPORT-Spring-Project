@@ -14,7 +14,6 @@ public class Production extends BaseEntity {
     @ManyToOne(
             fetch = FetchType.EAGER
     )
-    @JsonBackReference
     @JoinColumn(name = "country_id")
     private Country country;
 
